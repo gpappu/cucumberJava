@@ -6,6 +6,11 @@ import io.cucumber.java.en.When;
 
 public class implementationSteps {
 	
+	@Given("User is at the MyMDM Login page")
+	public void user_is_at_login_page(){
+	    // Write code here that turns the phrase above into concrete actions
+	    System.out.println("User is at the MyMDM login page");
+	} 
 
 	@When("User enters credentials {string} and Password {string} and clicks login")
 	public void user_enters_credentials_and_password_and_clicks_login(String username, String password) {
