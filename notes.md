@@ -42,7 +42,8 @@ Cucumber BDD framework mainly consists of three major parts:
 Cucumber tests are written in plain text files called feature files stored with the extension – “.feature”. 
 A Feature File can be described to make the documentation more legible. 
 These files describe the behavior and functionality of the software using a specific syntax called **Gherkin**. 
-    - Gherkin is a structured language that uses keywords like Given, When, and Then to define the steps of a test scenario.
+    - **Gherkin** is a structured language that uses keywords like Given, When, and Then to define the steps of a test scenario.
+Feature files are created in the src/test/java folder. 
     
 **Step Definitions**:
 Each step in a feature file is associated with a step definition implemented in the code. 
@@ -51,3 +52,8 @@ They map the plain text steps in the feature file to the corresponding code impl
 
 **Test Runner File**: 
 In Cucumber, the test runner file executes the Cucumber feature files and coordinates the steps defined in those feature files with the corresponding step definitions.
+For the test runner to execute, we use an annotation called **@CucumberOptions** which takes in the location of feature files and stepdefinitions as arguments
+The test runner class also requires to inherit properties from the **AbstactTestNGCucumberTests** to execute the feature file.
+
+### Example of a Cucumber Test
+
