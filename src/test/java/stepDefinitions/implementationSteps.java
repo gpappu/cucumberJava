@@ -12,7 +12,7 @@ public class implementationSteps {
 	    System.out.println("User is at the MyMDM login page");
 	} 
 
-	@When("User enters credentials {string} and Password {string} and clicks login")
+	@When("^User enters credentials (.+) and Password (.+) and clicks login$")
 	public void user_enters_credentials_and_password_and_clicks_login(String username, String password) {
 	    // Write code here that turns the phrase above into concrete actions
 	    System.out.println("User " + username +" enters password "+password+" and logs in");

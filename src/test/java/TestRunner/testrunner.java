@@ -5,7 +5,8 @@ import io.cucumber.testng.CucumberOptions;
 
 @CucumberOptions(features="src/test/java/features", 
 					glue="stepDefinitions", 
-					monochrome=true)
+					monochrome=true,
+					tags = "@SmokeTest")
 
 public class testrunner extends AbstractTestNGCucumberTests{
 
