@@ -1,17 +1,4 @@
-﻿
-# Cucumber Framework:
-
-## Camel Case - Naming conventions
-Any filename should start with upper case except for
-- properties
-- pom.xml
-
-Folders should NOT have any upper case
-
-Local variables should start with lower case and should follow camel case.
-
-Constants should be all upper case with underscores.
-
+﻿# Cucumber Framework: 
 
 ## What is BDD?
 
@@ -79,18 +66,6 @@ They map the plain text steps in the feature file to the corresponding code impl
 * For the test runner to execute, we use an annotation called @CucumberOptions which takes in the location of feature files and step definitions as arguments
 * The test runner class also requires to inherit properties from the AbstactTestNGCucumberTests to execute the feature file.
 
-## What is Cucumber Options?
-In layman language, @CucumberOptions are like property files or settings for your test. Basically @CucumberOptions enables us to do all the things that we could have done if we have used cucumber command line. This is very helpful and of utmost importance, if we are using IDE such eclipse only to execute our project. 
-
-Following Main Options are available in Cucumber:
-- dryRun: Can be true or false. Default is false. Checks if the steps in the feature file has assocated stepDefinitions.
-- features: Used to set the location of the feature files
-- glue: used to set the location of the step definition file
-- tags: used to execute tests with the tag name provided
-- monochrome: set to see the test runner output in a more readable way. If set to true, everything is displayed in one color. If set to false, the console output is displayed in 2 colors.
-- format: used to set report formatters
-- strict: Will fail if there are undefined or pending steps 
-
 ## Example of a Cucumber Test
 
 A cucumber test starts with creating a feature file that uses the following keywords:
@@ -103,7 +78,7 @@ A cucumber test starts with creating a feature file that uses the following keyw
 * **Scenario Outline (or Scenario Template)**: Used when the same scenario has to be executed with multiple values 
 * **Examples (or Scenarios)**: Used with Scenario Outline when the same scenario has to be executed with multiple values 
 
-## Using Scenario Outline
+## Using Scenario Outline/Data Driven Testing
 
 When using scenario outline, we can use parameterization as shown below:
 Scenario Outline: User Login
@@ -121,10 +96,11 @@ In the above example <username> and <password> are the 2 parameters used to exec
 We now modify the stepDefinitions file to include the parameters used in the feature file as shown below:
 
 @When("User enters credentials {string} and Password {string} and clicks login")
-	public void user_enters_credentials_and_password_and_clicks_login(String username, String password) {
-	    // Write code here that turns the phrase above into concrete actions
-	    System.out.println("User " + username +" enters password "+password+" and logs in");
-  
+    public void user_enters_credentials_and_password_and_clicks_login(String username, String password) {
+        // Write code here that turns the phrase above into concrete actions
+        System.out.println("User " + username +" enters password "+password+" and logs in");
+
+   
 
 **Instead of hard coding the parameters as strings(in double quotes), we can also use REGULAR EXPTESSIONS as shown below:**
 
@@ -145,7 +121,8 @@ The .+ is the regular exptession that will take any type of data and insert it i
     public void user_enters_credentials_and_password_and_clicks_login(String username, String password) {
         // Write code here that turns the phrase above into concrete actions
         System.out.println("User " + username +" enters password "+password+" and logs in");
- 
+
+   
 
 **When we have many parameters to enter (For ex: filling a form that has first name, last name, dob, address, etc.), we can provide all that data as a list within the scenario as ahown below:**
  Scenario: Enter form on landing apge
@@ -172,78 +149,6 @@ The .+ is the regular exptession that will take any type of data and insert it i
         System.out.println(data.get(3));
 
 ## Using Cucumber Tags
-- When we have a whole suite of tests, we can segregate those tests into categories by creating tags. For ex: some tests are smoke tests and some are regression. 
-- We can run only the tests considered as smoke tests by tagging them in the feature file as **@SmokeTest** and update the test runner file to use this tag 
-- Tags can have the keywords **and** to run test with more than one tag. They can have **or** to run any one of the tags. They can also have **not** to NOT run any tag
-
-## The keyword BACKGROUND
-- There could be an instance where all tests/scenarios would require some kind of prerequisites (a common set up) before running the test. Instead of setting up these steps for each scenario, they can be declared using the keyword **BACKGROUND**. 
-- Background is declared before the scenarios are written. 
-- Background is limited to the scope of the feature file it is defined in. It is NOT common to all feature files. 
-
-## Cucumber HOOKS
-**What are Hooks in Cucumber?**
-Cucumber supports hooks, which are blocks of code that run before or after each scenario. You can define them anywhere in your project or step definition layers, using the methods @Before and @After. Cucumber Hooks allows us to better manage the code workflow and helps us to reduce the code redundancy. We can say that it is an unseen step, which allows us to perform our scenarios or tests.
-
-**Why Cucumber Hooks?**
-In the world of testing, you must have encountered the situations where you need to perform the prerequisite steps before testing any test scenario. This prerequisite can be anything from:
-
-Starting a webdriver
-Setting up DB connections
-Setting up test data
-Setting up browser cookies
-Navigating to certain page
-or anything before the test
-In the same way, there are always after steps as well of the tests like:
-
-Killing the webdriver
-Closing DB connections
-Clearing the test data
-Clearing browser cookies
-Logging out from the application
-Printing reports or logs
-Taking screenshots on error
-or anything after the test
-To handle these kinds of situations, cucumber hooks are the best choice to use. Unlike TestNG Annotations, cucumber supports only two hooks (Before & After) which works at the start and the end of the test scenario. As the name suggests, @before hook gets executed well before any other test scenario, and @after hook gets executed after executing the scenario.
-
-**Cucumber hooks are similar to the BACKGROUND in a feature file but are used when the prerequisites(the test data )are not common for all the scenarios within the feature file. **
-
-** If a feature file is not specified in the test runner, Hooks will run for all scenarios in all feature files unlike BACKGROUND which is limited to the scope of the feature file it is defined within **
-
-** Hooks can also be limited to certain scenarios by using tags **
-
-** ORDER OF EXECUTION**
-Before hook -> Background -> Scenarios -> After Hook
-
-## Cucumber Reports 
-When ever we do test execution, it is also require to understand the out put of the execution. Whether it is Manual execution or an Automated, the output of the same has to be in format, which immediately depicts the overall results of the execution. Hence, our framework also should have the same capability to create output or generate test execution reports.
-
-It is essential to know, how better we can generate our Cucumber test reports. As we know that Cucumber is a BDD framework, it does not have a fancy reporting mechanism. In order to achieve this, Cucumber itself has provided a nice feature to generate reports. These are very basic reports, but using the output of these reports anybody can build more detailed HTML reports
-
-- Pretty Report
-The first plugin, we will talk about is Pretty.  This provides more verbose output. To implement this, just specify plugin = "pretty" in CucumberOptions. This is what the code looks like:
-
-@CucumberOptions( plugin = { "pretty" } )
-
-- Usage Report
-If we are more concerned about the time taken by each Step Definition, then we should use the usage plugin. This is how we specify the same in @CucumberOptions:
-
-@CucumberOptions( plugin = { "usage" })
-
-## Cucumber Report Output
-You must be wondering that all we have seen above is actually good for a test or for a couple of tests. But if we run a full test suite, this report is not much useful in that case. On top of that, it is difficult to keep these console output safe for future use.
-
-Cucumber gives us the capability to generate reports as well in the form of HTML, XML, JSON & TXT. Cucumber frameworks generate very good and detailed reports, which can be shared with all stakeholders. There are multiple options available for reports which can be used depending on the requirement.
-
-- Cucumber HTML Reports
-For HTML reports, add html:target/cucumber-reports to the @CucumberOptions plugin option.
-
-- Cucumber JSON Report
-For JSON reports, add json:target/cucumber-reports/Cucumber.json to the @CucumberOptions plugin option.
-
-- Cucumber JUNIT XML Report
-For JUNIT reports, add junit:target/cucumber-reports/Cucumber.xml to the @CucumberOptions plugin option.
-
-## Exceptions observed in Cucumber
-1. DuplicateStepDefinitionException
+When we have a whole suite of tests, we can segregate those tests into categories by creating tags. For ex: some tests are smoke tests and some are regression. 
+We can run only the tests considered as smoke tests by tagging them in the feature file as **@SmokeTest** and update the test runner file to use this tag 
 
