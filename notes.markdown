@@ -83,12 +83,12 @@ They map the plain text steps in the feature file to the corresponding code impl
 In layman language, @CucumberOptions are like property files or settings for your test. Basically @CucumberOptions enables us to do all the things that we could have done if we have used cucumber command line. This is very helpful and of utmost importance, if we are using IDE such eclipse only to execute our project. 
 
 Following Main Options are available in Cucumber:
-- dryRun: Can be true or false. Default is false. Checks if the steps in the feature file has assocated stepDefinitions.
+- dryRun: Can be true or false. Default is false. Checks if the steps in the feature file has associated stepDefinitions. It will only compile the feature file. It will not execute any tests.
 - features: Used to set the location of the feature files
 - glue: used to set the location of the step definition file
 - tags: used to execute tests with the tag name provided
 - monochrome: set to see the test runner output in a more readable way. If set to true, everything is displayed in one color. If set to false, the console output is displayed in 2 colors.
-- format: used to set report formatters
+- format: used to set report formatters. Ex: "pretty", "html:target/cucumber.html"
 - strict: Will fail if there are undefined or pending steps 
 
 ## Example of a Cucumber Test
